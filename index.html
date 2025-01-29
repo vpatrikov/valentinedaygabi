@@ -9,23 +9,89 @@
 </head>
 
 <body>
-    <audio autoplay loop unmuted>
-        <source src="cat cafe.mp3">
+
+    <!-- Background Video -->
+    <video autoplay muted loop id="myVideo">
+        <source src="background_vid.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Background Music -->
+    <audio autoplay loop>
+        <source src="cat cafe.mp3" type="audio/mp3">
         Unable to play audio Cat Cafe!
     </audio>
 
-    <div class="container">
+    <!-- Extra Sound for NO Button -->
+    <audio id="extra-sound">
+        <source src="button_sound.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="container" id="main-container">
         <h1 class="elementToFadeInAndOut">Hey, ☀️!</h1>
         <h1 class="elementToFadeInAndOut">Mnogo te bichkam, nali znaesh?</h1>
         <h1 class="elementToFadeInAndOut">Iskam da te pitam neshto.</h1>
         <h1 id="question" class="elementToFadeInAndOut">Shte budesh li moqta valentinka?</h1>
 
-        <!-- Buttons inside a container -->
+        <!-- Buttons -->
         <div class="button-container">
-            <button class="button yes">YES</button>
-            <button class="button no">NO</button>
+            <button class="button yes" onclick="showHeart()">YES</button>
+            <button class="button no" onclick="triggerShakeAndImage()">NO</button>
         </div>
     </div>
+
+    <script>
+        // Function for NO button: Plays sound, shakes the button, and displays an image
+        function triggerShakeAndImage() {
+            const button = document.querySelector('.button.no');
+            const sound = document.getElementById('extra-sound');
+
+            // Play the sound
+            sound.play();
+
+            // Shake the button
+            button.classList.add('shake');
+            setTimeout(() => button.classList.remove('shake'), 500); // Remove the shake effect after animation
+
+            // Display the NO image in the center
+            const noImage = document.createElement('img');
+            noImage.src = 'no_image.avif'; // Path to your image
+            noImage.alt = 'No Image';
+            noImage.className = 'no-image';
+            document.body.appendChild(noImage);
+
+            // Remove the image after 2 seconds
+            setTimeout(() => {
+                noImage.remove();
+            }, 2000); // Image stays for 2 seconds
+        }
+
+        // Function for YES button: Displays heart, shows text, and redirects to Instagram
+        function showHeart() {
+            // Display the heart animation
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            document.body.appendChild(heart);
+
+            // Remove the heart after animation ends
+            setTimeout(() => {
+                heart.remove();
+
+                // Replace the content in the container
+                const container = document.getElementById('main-container');
+                container.innerHTML = `
+                    <h1 style="color: wheat; text-align: center; font-size: 50px;">
+                        Sega trqbva da se razberem za sreshtata!!!
+                    </h1>
+                `;
+
+                setTimeout(() => {
+                    window.location.href = 'https://www.instagram.com/';
+                }, 2500);
+            }, 1000); // Delay after heart animation
+        }
+    </script>
 
 </body>
 

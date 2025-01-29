@@ -1,69 +1,154 @@
 @keyframes fade-in-out {
-    0% { opacity: 0; visibility: visible; }
-    10% { opacity: 1; visibility: visible; }  /* Fade in */
-    90% { opacity: 1; visibility: visible; }  /* Stay visible */
-    100% { opacity: 0; visibility: hidden; } /* Fade out and hide */
+    0% {
+        opacity: 0;
+        visibility: visible;
+    }
+
+    10% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Fade in */
+    90% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Stay visible */
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    /* Fade out and hide */
 }
 
 @keyframes fade-in {
-    0% { opacity: 0; transform: translateY(50px); visibility: visible; } /* Starts lower */
-    100% { opacity: 1; transform: translateY(0px); visibility: visible; } /* Moves to center */
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+        visibility: visible;
+    }
+
+    /* Starts lower */
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+        visibility: visible;
+    }
+
+    /* Moves to center */
 }
 
 @keyframes slide-to-top {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-40vh); } /* Moves question up to the top */
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-40vh);
+    }
+
+    /* Moves question up to the top */
+}
+/* Shake animation for the NO button */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
 }
 
-body{
-    background-color: #4CAF50;
+
+@keyframes pop {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+
+#myVideo {
+    filter: brightness(50%);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
 }
 
 .container {
     display: flex;
-    flex-direction: column;  /* Stack elements vertically */
+    flex-direction: column;
+    /* Stack elements vertically */
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    position: relative; /* Prevents weird stacking issues */
+    position: relative;
+    /* Prevents weird stacking issues */
+}
+
+h1{
+    color: wheat ;
+    font-size: 50px;
 }
 
 .elementToFadeInAndOut {
-    opacity: 0; /* Start hidden */
-    position: absolute; /* Stack elements on top of each other */
+    opacity: 0;
+    /* Start hidden */
+    position: absolute;
+    /* Stack elements on top of each other */
     animation: fade-in-out 3.5s ease-in-out forwards;
 }
 
 /* Staggered animation delays for text elements */
-.elementToFadeInAndOut:nth-child(1) { animation-delay: 0s; }   /* First appears immediately */
-.elementToFadeInAndOut:nth-child(2) { animation-delay: 4.5s; } /* Second appears after first disappears */
-.elementToFadeInAndOut:nth-child(3) { animation-delay: 9s; }   /* Third appears after second disappears */
+.elementToFadeInAndOut:nth-child(1) {
+    animation-delay: 0s;
+}
+
+/* First appears immediately */
+.elementToFadeInAndOut:nth-child(2) {
+    animation-delay: 4.5s;
+}
+
+/* Second appears after first disappears */
+.elementToFadeInAndOut:nth-child(3) {
+    animation-delay: 9s;
+}
+
+/* Third appears after second disappears */
 
 /* Final question: Fade in first, then move up */
 #question {
     opacity: 0;
     position: absolute;
     animation: fade-in 3.5s ease-in forwards, slide-to-top 2s ease-in-out forwards;
-    animation-delay: 13.5s, 17s; /* First fade in, then move up */
+    animation-delay: 13.5s, 17s;
+    /* First fade in, then move up */
 }
 
 /* Button container to align buttons properly */
 .button-container {
     display: flex;
     justify-content: center;
-    gap: 20px; /* Spacing between buttons */
+    gap: 20px;
+    /* Spacing between buttons */
     position: absolute;
-    top: 60%; /* Initially positioned below */
-    opacity: 0; /* Hidden initially */
+    top: 60%;
+    /* Initially positioned below */
+    opacity: 0;
+    /* Hidden initially */
     animation: fade-in 2s ease-in forwards;
-    animation-delay: 19s; /* Appears after the question moves up */
+    animation-delay: 19s;
+    /* Appears after the question moves up */
 }
+
+
 
 /* Button styling */
 .button {
     padding: 10px 20px;
-    font-size: 18px;
+    font-size: 30px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -72,15 +157,55 @@ body{
 
 
 .button:hover {
-    transform: scale(1.1); /* Slight zoom effect */
+    transform: scale(1.1);
+    /* Slight zoom effect */
 }
 
 .button.yes {
-    background-color: #4CAF50; /* Green for Yes */
+    background-color: #bacafe;
+    /* Green for Yes */
     color: white;
 }
 
 .button.no {
-    background-color: #FF5733; /* Red for No */
+    background-color: #FF5733;
+    /* Red for No */
     color: white;
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Heart pop-up animation */
+.heart {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+    color: red;
+    animation: pop 1s ease-out forwards;
+}
+
+/* Styling for the NO image */
+.no-image {
+    position: absolute;
+    top: 40%; /* Position above the buttons */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the image */
+    width: 150px; /* Adjust size */
+    height: auto;
+    animation: fade-in 1s ease-out, fade-out 1s ease-in 1s;
+    /* Fades in, stays for 1 second, then fades out */
+    pointer-events: none; /* Prevent interaction with the image */
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
